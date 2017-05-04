@@ -1,0 +1,81 @@
+Josh Rhoades
+Biostatistics 
+Take Home Final
+R Commands List
+
+1.
+drugcost<-read.table("drugcost.txt", header=T)
+
+anova(lm((COST~RXPM + AGE + F + MM +COPAY + GS + RI), data=drugcost))
+
+pf(6.6204, 1, 21, lower.tail=F)
+pf(3.5983, 1, 21, lower.tail=F)
+pf(1.8593, 1, 21, lower.tail=F)
+pf(16.1503, 1, 21, lower.tail=F)
+
+
+anova(lm((COST~COPAY + GS + RI), data=drugcost))
+pf(0.0035, 1, 25, lower.tail=F)
+pf(12.1001, 1, 25, lower.tail=F)
+pf(0.0540, 1, 25, lower.tail=F)
+
+2.A
+sniffer<-read.table("sniffer.txt", header=T)
+plot(sniffer$TankTemp, sniffer$TankPres
+
+2.B
+ model<- lm(Y~TankPres + GasPres + GasTemp, data=sniffer)
+ summary(model)
+model1<- lm(Y~TankPres + TankTemp + GasPres + GasTemp, data=sniffer)
+summary(model1)
+
+3B.
+walleye<-read.table("walleye.txt", header=T)
+walleyeno3<-read.table("walleyeno3.txt", header=T)
+fishmodelno3<-glm(period~ age + length, family=gaussian, data=walleyeno3)
+summary(fishmodelno3)
+1-pchisq(587.12-572.85, 2512-2510)
+
+3B.
+walleyeno1<-read.table("walleyeno1.txt", header=T)
+
+fishmodelno1<-glm(period~ age + length, family=gaussian, data=walleyeno1)
+summary(fishmodelno1)
+1-pchisq(1359.0-1263.8,2936-2934)
+
+
+4.
+cancer<-array(c(11,10,25,27, 16,12,4,20, 14,7,5,12, 6,10,9,3, 6,0,10,8, 1,0,3,4, 4,7,2,10), dim=c(2, 2, 7), dimnames =  list(Exposure = c("High", "Low"),  Cancer = c("Yes", "No"),Location = c("1","2","3","4","5","6","7")))
+summary(cancer)
+cancersum<-apply(cancer,c(1,2),sum)
+> cancersum
+        Cancer
+Exposure Yes No
+    High  58 58
+    Low   46 84
+> (58*84)/(58*46)
+[1] 1.826087
+chisq.test(cancersum)
+
+5A.
+plasma<-read.table("plasma.txt", header=T)
+wilcox.test(plasma$BETAPLASMA,plasma$SEX, alternative="g")
+t.test(plasma$BETAPLASMA,plasma$SEX, alternative="g")
+
+
+5B.
+wilcox.test(plasma$BETAPLASMA,plasma$SMOKESTAT, alternative="g")
+t.test(plasma$BETAPLASMA,plasma$SMOKESTAT, alternative="g")
+
+wilcox.test(plasma$RETPLASMA,plasma$SMOKESTAT, alternative="g")
+t.test(plasma$RETPLASMA,plasma$SMOKESTAT, alternative="g")
+
+
+5C.
+wilcox.test(plasma$BETADIET,plasma$SMOKESTAT, alternative="g")
+t.test(plasma$BETADIET,plasma$SMOKESTAT, alternative="g")
+
+wilcox.test(plasma$RETDIET,plasma$SMOKESTAT, alternative="g")
+t.test(plasma$RETADIET,plasma$SMOKESTAT, alternative="g")
+
+
